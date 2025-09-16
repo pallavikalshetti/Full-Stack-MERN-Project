@@ -14,13 +14,17 @@ The backend is designed for scalability, making it suitable for small teams and 
 -Running the Application
 -Testing
 -Deployment
+-Features
+-Author
 
 ## Technologies:
 -Node.js
 -Express
 -MongoDB (via Mongoose)
--JWT Authentication
+-JWT Authentication (for authentication)
+-dotenv
 -bcryptjs for Password Hashing
+-CORS for security
 
 # Repository Link:
 # GitHub Repository: Pro-Tasker Backend
@@ -59,12 +63,17 @@ POST /api/projects/:projectId/tasks  -  Create a new task within a project
 GET /api/projects/:projectId/tasks  -  Get all tasks in a project
 PUT /api/tasks/:id  -  Update a task
 DELETE /api/tasks/:id  -  Delete a task
-Collaboration (Stretch Goal)
-POST /api/projects/:projectId/invite  -  Invite a user to collaborate on a project
+
 
 # Authentication
 JWT Authentication is used to protect routes that require user login. The token is passed in the Authorization header as Bearer <token> for protected API endpoints.
 To test endpoints requiring authentication, add the JWT token to the Authorization header of your API requests.
+Password Security: All passwords are hashed using bcrypt before being stored in MongoDB.
+Ownership-based Authorization:
+Users can only access or modify their own projects and tasks.
+Middleware checks token and ownership on every protected route.
+# Authorization: Bearer <your_token_here>
+
 
 # Running the Application
 npm run dev
@@ -77,3 +86,6 @@ Project Management: Users can create, update, and delete projects. Projects are 
 Task Management: Tasks are linked to projects and can be created, updated, and deleted by the project owner. Tasks have fields like title, description, and status.
 MongoDB Database: The backend uses MongoDB with Mongoose to store users, projects, and tasks. Data relationships are structured with references (ref) for better organization.
 Security: JWT-based authentication and authorization middleware ensure that users can only access endpoints that belong to them. Sensitive data, like passwords, are hashed and never stored in plaintext.
+
+# Author
+Developed by PALLAVI KALSHETTI as part of the MERN Stack Capstone Project.
