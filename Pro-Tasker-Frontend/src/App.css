@@ -1,0 +1,216 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url('/background.jpg'); /* adjust path */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #4CAF50;
+  padding: 10px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  color: white;
+}
+
+.navbar-links {
+  display: flex;
+  list-style-type: none;
+}
+
+.navbar-link {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  text-decoration: underline;
+}
+
+/* Main App Styling */
+.app {
+  margin: 20px;
+}
+
+.dashboard {
+  text-align: center;
+}
+
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Project Card */
+.project-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 30%;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.project-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Task Card */
+.task-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+}
+
+.task-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.task-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.task-card span {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Form Styles */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablet Layout: max-width 1024px */
+@media screen and (max-width: 1024px) {
+  .projects-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .project-card {
+    width: 45%;  /* 2 items per row on tablets */
+  }
+
+  .task-card {
+    width: 100%;  /* Full width for task cards on tablets */
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+  }
+}
+
+/* Mobile Layout: max-width 600px */
+@media screen and (max-width: 600px) {
+  /* Flexbox for project container */
+  .projects-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-card {
+    width: 100%;  /* 1 item per row on mobile */
+  }
+
+  .task-card {
+    width: 100%;  /* Full width for task cards on mobile */
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .navbar-link {
+    margin: 5px 0;
+  }
+
+  /* Button styles */
+  button {
+    width: 100%;  /* Full width buttons on mobile */
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Form fields */
+  input, textarea {
+    font-size: 14px;
+  }
+
+  .task-card h3, .project-card h2 {
+    font-size: 16px;
+  }
+
+  .task-card p, .project-card p {
+    font-size: 12px;
+  }
+
+  .dashboard h1 {
+    font-size: 22px;
+  }
+}
