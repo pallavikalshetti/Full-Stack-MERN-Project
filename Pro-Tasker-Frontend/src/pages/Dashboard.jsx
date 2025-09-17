@@ -1,71 +1,92 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
-    const [projects, setProjects] = useState([]);
-    const { user } = useAuth();
-    const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-        const res = await api.get("/api/projects", {
-            headers: { Authorization: `Bearer ${user.token}` },
-        });
-        setProjects(res.data);
-        };
-        fetchProjects();
-        }, [user]);
-
-        const handleUpdate = (projectId) => {
-          navigate(`/projects/edit/${projectId}`);
-          // Navigate to edit page or open modal
-         console.log("Update project", projectId);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const res = await api.get("/api/projects", {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      setProjects(res.data);
     };
+    fetchProjects();
+  }, [user]);
 
-const handleDelete = async (projectId) => {
-  if (!window.confirm("Are you sure you want to delete this project?")) return;
-  try {
-    await api.delete(`/api/projects/${projectId}`, {
-      headers: { Authorization: `Bearer ${user.token}` },
-    });
-    setProjects(projects.filter((p) => p._id !== projectId));
-  } catch (err) {
-    console.error("Error deleting project", err);
-  }
-};
+  const handleUpdate = (projectId) => {
+    navigate(`/projects/edit/${projectId}`);
+  };
 
+  const handleDelete = async (projectId) => {
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
+    try {
+      await api.delete(`/api/projects/${projectId}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      setProjects(projects.filter((p) => p._id !== projectId));
+    } catch (err) {
+      console.error("Error deleting project", err);
+    }
+  };
 
-    return (
-        <div className="p-6 dashboard">
-            <h2 className="text-2xl mb-4">My Projects</h2>
-            <div className="projects-container">
-            {
-                projects.map((project) => (
-                
-                // <div key={project._id} className="border p-3 mb-2">
-                //     <Link to={`/projects/${project._id}`}>{project.name}</Link>
-                // </div>
-                <div key={project._id} className="project-card1">
-  <div className="project-header">
-    <Link to={`/projects/${project._id}`} className="project-link">
-      {project.name}
-    </Link>
-    <div className="project-actions">
-      <button onClick={() => handleUpdate(project._id)}>Update</button>
-      <button onClick={() => handleDelete(project._id)}>Delete</button>
-    </div>
-  </div>
-</div>
-                
-                ))
-            } 
-            </div>
-            <br></br>
-            <h4><Link to={`/projects`}>Add New Project</Link></h4>
+  return (
+    <div className="dashboard">
+      <h2 className="dashboard-title">My Projects</h2>
 
+      {projects.length === 0 ? (
+        <p>No projects found.</p>
+      ) : (
+        <div className="project-table-wrapper">
+          <table className="project-table">
+            <thead>
+              <tr>
+                <th>Project Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+           <tbody>
+  {projects.map((project) => (
+    <tr key={project._id}>
+      <td data-label="Name">
+        <Link to={`/projects/${project._id}`} className="project-name-link">
+          {project.name}
+        </Link>
+      </td>
+      <td data-label="Description">{project.description}</td>
+      <td data-label="Actions">
+        <div className="action-buttons">
+          <button
+            className="action-button update"
+            onClick={() => handleUpdate(project._id)}
+          >
+            Update
+          </button>
+          <button
+            className="action-button delete"
+            onClick={() => handleDelete(project._id)}
+          >
+            Delete
+          </button>
         </div>
-    );
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+          
+          </table>
+        </div>
+      )}
+
+      <div className="add-project-link">
+        <Link to="/projects" className="primary">+ Add New Project</Link>
+      </div>
+    </div>
+  );
 }
