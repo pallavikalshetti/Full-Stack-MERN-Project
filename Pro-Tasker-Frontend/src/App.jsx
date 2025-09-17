@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import ProjectDetails from "./pages/ProjectDetails";
 import AddProject from "./pages/AddProject";
 import AddTask from "./pages/AddTask";
+import EditProject from "./pages/EditPoject";
 
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,6 +25,7 @@ return (
     <Route path="/projects/:id" element={<ProtectedRoute><ProjectDetails /></ProtectedRoute>} />
     <Route path="/projects" element={<ProtectedRoute><AddProject /></ProtectedRoute>} />
     <Route path="/projects/:id/tasks" element={<ProtectedRoute><AddTask /></ProtectedRoute>} />
+    <Route path="/projects/edit/:id" element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
 </Routes>
 </div>
