@@ -1,8 +1,6 @@
 ## Backend README
 ## Pro-Tasker Backend
-The backend of Pro-Tasker serves as the core API that powers the project management system. Built using Node.js, Express, and MongoDB, the backend handles user authentication, project creation, and task management. It ensures a secure and scalable architecture, focusing on RESTful design and strict authorization mechanisms to protect user data.
-
-The backend is designed for scalability, making it suitable for small teams and capable of handling growing data requirements as users collaborate and manage more projects.
+The backend of Pro-Tasker is the core API that powers the project management system. Built with Node.js, Express, and MongoDB, it handles essential functionalities such as user authentication, project creation, and task management. The architecture emphasizes security and scalability, following RESTful principles and implementing strict authorization to ensure users can only access their own data. While optimized for individual use, the backend is structured to scale and can support expanded features in the future.
 
 ## Table of Contents:
 
