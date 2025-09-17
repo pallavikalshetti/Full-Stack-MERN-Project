@@ -20,9 +20,10 @@ export default function Dashboard() {
         }, [user]);
 
         const handleUpdate = (projectId) => {
-  // Navigate to edit page or open modal
-  console.log("Update project", projectId);
-};
+          navigate(`/projects/edit/${projectId}`);
+          // Navigate to edit page or open modal
+         console.log("Update project", projectId);
+    };
 
 const handleDelete = async (projectId) => {
   if (!window.confirm("Are you sure you want to delete this project?")) return;
