@@ -400,3 +400,103 @@ button.primary:hover {
     text-align: center;
   }
 }
+/* --- Project Details Task Styling --- */
+
+.task-section {
+  margin-top: 32px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eee;
+}
+
+.task-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.task-card p {
+  margin: 0 0 12px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.task-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.task-controls select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  font-size: 0.95rem;
+}
+
+.task-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.task-buttons a,
+.task-buttons button {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.task-buttons a {
+  background-color: var(--brand-green);
+  color: white;
+}
+
+.task-buttons a:hover {
+  background-color: var(--brand-green-dark);
+}
+
+.task-buttons button {
+  background-color: #d64545;
+  color: white;
+}
+
+.task-buttons button:hover {
+  background-color: #b83232;
+}
+
+/* --- Responsive: Task Cards --- */
+@media (max-width: 600px) {
+  .task-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-buttons {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .task-buttons a,
+  .task-buttons button {
+    width: 100%;
+  }
+}
