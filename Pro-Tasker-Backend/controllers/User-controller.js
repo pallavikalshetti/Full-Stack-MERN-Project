@@ -8,13 +8,13 @@ exports.register = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ msg: 'User already exists' });
+    if (userExists) return res.status(400).json({ msg:'User already exists' });
 
     const user = await User.create({ name, email, password });
     const token = generateToken(user._id);
     res.status(201).json({ token, user: { id: user._id, name: user.name } });
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ msg: 'Server error'});
   }
 };
 
@@ -23,11 +23,11 @@ exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user || !(await user.matchPassword(password)))
-      return res.status(401).json({ msg: 'Invalid credentials' });
+      return res.status(401).json({ msg:'Invalid credentials'});
 
     const token = generateToken(user._id);
-    res.json({ token, user: { id: user._id, name: user.name } });
+    res.status(201).json({ token, user: { id: user._id, name: user.name } });
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ msg:'Server error'});
   }
 };
