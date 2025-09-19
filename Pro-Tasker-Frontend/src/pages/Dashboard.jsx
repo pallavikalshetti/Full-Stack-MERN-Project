@@ -18,10 +18,11 @@ export default function Dashboard() {
     fetchProjects();
   }, [user]);
 
+  //navigate to update project screen
   const handleUpdate = (projectId) => {
     navigate(`/projects/edit/${projectId}`);
   };
-
+  //delete project
   const handleDelete = async (projectId) => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
     try {
@@ -37,7 +38,6 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <h2 className="dashboard-title">My Projects</h2>
-
       {projects.length === 0 ? (
         <p>No projects found.</p>
       ) : (
@@ -50,40 +50,25 @@ export default function Dashboard() {
                 <th>Actions</th>
               </tr>
             </thead>
-           <tbody>
-  {projects.map((project) => (
-    <tr key={project._id}>
-      <td data-label="Name">
-        <Link to={`/projects/${project._id}`} className="project-name-link">
-          {project.name}
-        </Link>
-      </td>
-      <td data-label="Description">{project.description}</td>
-      <td data-label="Actions">
-        <div className="action-buttons">
-          <button
-            className="action-button update"
-            onClick={() => handleUpdate(project._id)}
-          >
-            Update
-          </button>
-          <button
-            className="action-button delete"
-            onClick={() => handleDelete(project._id)}
-          >
-            Delete
-          </button>
-        </div>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
-          
+            <tbody>
+                {projects.map((project) => (
+                  <tr key={project._id}>
+                    <td data-label="Name">
+                      <Link to={`/projects/${project._id}`} className="project-name-link">{project.name}</Link>
+                    </td>
+                    <td data-label="Description">{project.description}</td>
+                    <td data-label="Actions">
+                      <div className="action-buttons">
+                        <button className="action-button update" onClick={() => handleUpdate(project._id)}>Update</button>
+                        <button className="action-button delete" onClick={() => handleDelete(project._id)}>Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
           </table>
         </div>
       )}
-
       <div className="add-project-link">
         <Link to="/projects" className="primary">+ Add New Project</Link>
       </div>

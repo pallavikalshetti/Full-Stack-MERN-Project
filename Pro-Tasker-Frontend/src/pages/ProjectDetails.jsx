@@ -87,8 +87,7 @@ export default function ProjectDetails() {
       </div>
 
       <div className="add-project-link">
-        <Link to={`/projects/${id}/tasks`} className="text-blue-600 underline">
-          ➕ Add New Task
+        <Link to={`/projects/${id}/tasks`} className="text-blue-600 underline">Add New Task
         </Link>
       </div>
 
