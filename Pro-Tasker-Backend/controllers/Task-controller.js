@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Task = require('../models/Task-model');
 const Project = require('../models/Project-model');
 
@@ -7,16 +8,34 @@ exports.getTasksByProject = async (req, res) => {
     const project = await Project.findById(req.params.projectId);
     if (!project) return res.status(404).json({ msg: 'Project not found' });
 
-    if (
-      !project.user.equals(req.user._id) &&
-      !project.collaborators.includes(req.user._id)
-    )
-      return res.status(403).json({ msg: 'Access denied' });
+    if (!project.user.equals(req.user._id)){
+      return res.status(403).json({ msg: 'Access denied' });}
 
     const tasks = await Task.find({ project: req.params.projectId });
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ msg: 'Failed to fetch tasks' });
+  }
+};
+
+//Get a single task (with authorization check)
+exports.getTaskById = async (req, res) => {
+  const taskId  = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(taskId)) {
+    return res.status(400).json({ msg: "Invalid task ID" });
+  }
+
+  try {
+    const task = await Task.findById(taskId).populate('project');
+    if (!task) return res.status(404).json({ msg: 'Task not found' });
+    const project = task.project;
+    if (!project.user.equals(req.user._id)) {
+      return res.status(403).json({ msg: 'Access denied' });
+    } 
+
+    res.json(task);
+  } catch (err) {
+    res.status(500).json({ msg: 'Failed to fetch task' });
   }
 };
 
@@ -28,11 +47,8 @@ exports.createTask = async (req, res) => {
     const project = await Project.findById(req.params.projectId);
     if (!project) return res.status(404).json({ msg: 'Project not found' });
 
-    if (
-      !project.user.equals(req.user._id) &&
-      !project.collaborators.includes(req.user._id)
-    )
-      return res.status(403).json({ msg: 'Not authorized to add task' });
+    if (!project.user.equals(req.user._id)){
+      return res.status(403).json({ msg: 'Not authorized to add task' });}
 
     const task = await Task.create({
       title,
@@ -56,11 +72,9 @@ exports.updateTask = async (req, res) => {
     if (!task) return res.status(404).json({ msg: 'Task not found' });
 
     const project = task.project;
-    if (
-      !project.user.equals(req.user._id) &&
-      !project.collaborators.includes(req.user._id)
-    )
+    if (!project.user.equals(req.user._id)){
       return res.status(403).json({ msg: 'Access denied' });
+    }
 
     task.title = title || task.title;
     task.description = description || task.description;

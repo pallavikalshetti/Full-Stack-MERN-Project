@@ -11,11 +11,6 @@ app.use(express.json());
 app.use(cors());
 const PORT = process.env.PORT || 3000;
 
-//Import Routes
-// const authRoutes = require('./routes/User-routes');
-// const projectRoutes = require('./routes/Project-routes');
-// const taskRoutes = require('./routes/Task-routes');
-
 //Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);

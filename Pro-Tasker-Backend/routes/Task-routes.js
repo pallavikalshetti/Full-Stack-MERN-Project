@@ -3,6 +3,7 @@ const router = express.Router();
 const protect = require('../middleware/Auth-middleware');
 const {
   getTasksByProject,
+  getTaskById,
   createTask,
   updateTask,
   deleteTask,
@@ -13,6 +14,7 @@ router.use(protect);
 
 // Tasks for a specific project
 router.route('/project/:projectId').get(getTasksByProject)
+router.route('/:id').get(getTaskById)
 router.route('/project/:projectId').post(createTask);
 
 // Individual task

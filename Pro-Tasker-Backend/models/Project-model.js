@@ -5,13 +5,15 @@ const projectSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  description: String,
+  description: {
+    type: String,
+    required: [true, 'Task description is required'] 
+  } ,
   user: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', 
     required: true 
   },
-  collaborators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Project', projectSchema);

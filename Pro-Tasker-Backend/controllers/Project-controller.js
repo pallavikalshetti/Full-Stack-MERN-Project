@@ -32,10 +32,7 @@ exports.getProjectById = async (req, res) => {
     const project = await Project.findById(req.params.id);
     if (!project) return res.status(404).json({ msg: 'Project not found' });
 
-    if (
-      !project.user.equals(req.user._id) &&
-      !project.collaborators.includes(req.user._id)
-    ) {
+    if (!project.user.equals(req.user._id)) {
       return res.status(403).json({ msg: 'Access denied' });
     }
 
@@ -82,27 +79,3 @@ exports.deleteProject = async (req, res) => {
   }
 };
 
-// Add collaborator (Stretch)
-exports.addCollaborator = async (req, res) => {
-  const { email } = req.body;
-  try {
-    const project = await Project.findById(req.params.id);
-    if (!project) return res.status(404).json({ msg: 'Project not found' });
-
-    if (!project.owner.equals(req.user._id))
-      return res.status(403).json({ msg: 'Only owner can invite collaborators' });
-
-    const User = require('../models/User');
-    const userToAdd = await User.findOne({ email });
-    if (!userToAdd) return res.status(404).json({ msg: 'User not found' });
-
-    if (project.collaborators.includes(userToAdd._id))
-      return res.status(400).json({ msg: 'User is already a collaborator' });
-
-    project.collaborators.push(userToAdd._id);
-    await project.save();
-    res.json({ msg: 'Collaborator added' });
-  } catch (err) {
-    res.status(500).json({ msg: 'Failed to add collaborator' });
-  }
-};
